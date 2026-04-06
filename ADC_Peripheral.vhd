@@ -28,9 +28,21 @@ ARCHITECTURE behavior OF ADC_Peripheral IS
 			rx_data  : out std_logic_vector(11 downto 0);
 			busy     : out std_logic;
 			-- SPI Physical Interface
-			sclk     : out std_logic; -- Serial clock
-			conv     : out std_logic; -- Conversion start control
-			mosi     : out std_logic; -- Data out from this device, in to ADC
-			miso     : in  std_logic  -- Data out from ADC, in to this device	
+			sclk     : out std_logic; 
+			conv     : out std_logic; 
+			mosi     : out std_logic; 
+			miso     : in  std_logic  	
 		
 		);
+	END COMPONENT;
+	
+	-- PLACEHOLDER -- More ADC logic?
+	SIGNAL control_reg : STD_LOGIC_VECTOR(5 DOWNTO 0);
+	SIGNAL data_ready : STD_LOGIC;
+	
+	SIGNAL status : STD_LOGIC;
+	
+	
+	
+	
+	
