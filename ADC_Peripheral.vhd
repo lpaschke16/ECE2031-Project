@@ -20,4 +20,17 @@ ENTITY ADC_Peripheral IS
 END ADC_Peripheral;
 
 ARCHITECTURE behavior OF ADC_Peripheral IS
-blah blah blah
+	COMPONENT LTC2308_ctrl IS
+		PORT (
+			clk      : in  std_logic;
+			nrst     : in  std_logic;
+			start    : in  std_logic;
+			rx_data  : out std_logic_vector(11 downto 0);
+			busy     : out std_logic;
+			-- SPI Physical Interface
+			sclk     : out std_logic; -- Serial clock
+			conv     : out std_logic; -- Conversion start control
+			mosi     : out std_logic; -- Data out from this device, in to ADC
+			miso     : in  std_logic  -- Data out from ADC, in to this device	
+		
+		);
