@@ -49,6 +49,12 @@ ARCHITECTURE behavior OF ADC_Peripheral IS
 	WITH control_reg SELECT
 		tx_shift_reg <= "100010" WHEN "0000",
 						"110010" WHEN "0001",
+						"100100" WHEN "0010",
+						"110100" WHEN "0011",
+						"101000" WHEN "0100",
+						"111000" WHEN "0101",
+						"101100" WHEN "0111",
+						"111100" WHEN "1000",
 
 	tx_data(11 downto 6) <= tx_shift_reg
 	
