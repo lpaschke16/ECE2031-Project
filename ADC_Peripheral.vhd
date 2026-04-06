@@ -54,7 +54,7 @@ ARCHITECTURE behavior OF ADC_Peripheral IS
 						"101000" WHEN "0100",
 						"111000" WHEN "0101",
 						"101100" WHEN "0111",
-						"111100" WHEN "1000",;
+						"111100" WHEN "1000";
 
 	tx_data(11 downto 6) <= tx_shift_reg
 	
