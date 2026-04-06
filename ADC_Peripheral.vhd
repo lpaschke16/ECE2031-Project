@@ -41,6 +41,15 @@ ARCHITECTURE behavior OF ADC_Peripheral IS
 	SIGNAL data_ready : STD_LOGIC;
 	
 	SIGNAL status : STD_LOGIC;
+	SIGNAL tx_shift_reg : STD_LOGIC_VECTOR(11 DOWNTO 0);
+
+	tx_shift_reg(11) <= '1';
+    tx_shift_reg(10) <= -- O/S
+    tx_shift_reg(9)  <=  -- S1
+    tx_shift_reg(8)  <=  -- S0
+    tx_shift_reg(7)  <= '1';
+    tx_shift_reg(6)  <= '0';
+    tx_shift_reg(5 DOWNTO 0) <= "000000"; --  Zero Padding
 
 	case control_reg(3 downto 0) is
     	when "0000" => tx_shift_reg <= "100010";
