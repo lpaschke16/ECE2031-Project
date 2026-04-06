@@ -41,7 +41,9 @@ ARCHITECTURE behavior OF ADC_Peripheral IS
 	SIGNAL data_ready : STD_LOGIC;
 	
 	SIGNAL status : STD_LOGIC;
-	
+
+	case control_reg(3 downto 0) is
+    	when "0000" => tx_shift_reg <= "100010";
 	
 	
 	
