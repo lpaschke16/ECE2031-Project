@@ -37,22 +37,20 @@ ARCHITECTURE behavior OF ADC_Peripheral IS
 	END COMPONENT;
 	
 	-- PLACEHOLDER -- More ADC logic?
-	SIGNAL control_reg : STD_LOGIC_VECTOR(5 DOWNTO 0);
+	SIGNAL control_reg : STD_LOGIC_VECTOR(3 DOWNTO 0);
 	SIGNAL data_ready : STD_LOGIC;
 	
 	SIGNAL status : STD_LOGIC;
-	SIGNAL tx_shift_reg : STD_LOGIC_VECTOR(11 DOWNTO 0);
+	SIGNAL tx_shift_reg : STD_LOGIC_VECTOR(5 DOWNTO 0);
 
-	tx_shift_reg(11) <= '1';
-    tx_shift_reg(10) <= -- O/S
-    tx_shift_reg(9)  <=  -- S1
-    tx_shift_reg(8)  <=  -- S0
-    tx_shift_reg(7)  <= '1';
-    tx_shift_reg(6)  <= '0';
-    tx_shift_reg(5 DOWNTO 0) <= "000000"; --  Zero Padding
 
-	case control_reg(3 downto 0) is
-    	when "0000" => tx_shift_reg <= "100010";
+--	case control_reg(3 downto 0) is
+  --  	when "0000" => tx_shift_reg <= "100010";
+	WITH control_reg SELECT
+		tx_shift_reg <= "100010" WHEN "0000",
+						"110010" WHEN "0001",
+
+	tx_data(11 downto 6) <= tx_shift_reg
 	
 	
 	
