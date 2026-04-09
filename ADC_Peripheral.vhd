@@ -88,7 +88,13 @@ ARCHITECTURE behavior OF ADC_Peripheral IS
 	PROCESS (CLOCK, RESETN)
 		BEGIN
 			-- Register map stuff
-		
+			IF (RESETN = '0') THEN
+				control_reg <= "0000";
+				status <= '0';
+				adc_start <= '0';
+				busy_previous <= '0';
+			END IF
+
 		
 	END PROCESS
 	
