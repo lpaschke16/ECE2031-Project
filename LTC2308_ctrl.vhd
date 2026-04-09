@@ -53,7 +53,7 @@ architecture internals of LTC2308_ctrl is
 	-- Internal signals for data shifting
 	-- The default value here is for a single-ended conversion on channel 0
 --	constant tx_data : std_logic_vector(11 downto 0) := "100010000000";
-	signal tx_data : std_lofic_vector(11 downto 0);
+	signal tx_data : std_logic_vector(11 downto 0);
 	signal tx_reg    : std_logic_vector(11 downto 0);
 	signal rx_reg    : std_logic_vector(11 downto 0);
 
