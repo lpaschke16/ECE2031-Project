@@ -63,8 +63,13 @@ ARCHITECTURE behavior OF ADC_Peripheral IS
 	 	mode <=	send_conversion WHEN "00011000000",
 	 			send_status WHEN "00011000001";
 
-	 PROCESS(send_something, IO_READ, RESETN)
-	 	 IF (send_something = '0') AND (IO_READ = '1') THEN
+	 PROCESS(send_something, IO_READ, RESETN, CLOCK)
+	 	IF (RESETN = '0') THEN
+				control_reg <= "0000";
+				status <= '0';
+				adc_start <= '0';
+				busy_previous <= '0';
+		ELSIF (send_something = '0') AND (IO_READ = '1') THEN
 		 	WITH control_reg SELECT
 				tx_shift_reg <= "100010" WHEN "0000",
 							"110010" WHEN "0001",
@@ -106,19 +111,7 @@ ARCHITECTURE behavior OF ADC_Peripheral IS
         miso => ADC_DOUT
     );
 	
-	PROCESS (CLOCK, RESETN)
-		BEGIN
-			-- Register map stuff
-			IF (RESETN = '0') THEN
-				control_reg <= "0000";
-				status <= '0';
-				adc_start <= '0';
-				busy_previous <= '0';
-			END IF
 
-		
-	END PROCESS
-	
 	
 	
 	
