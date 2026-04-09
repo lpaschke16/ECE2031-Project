@@ -44,17 +44,29 @@ ARCHITECTURE behavior OF ADC_Peripheral IS
 	SIGNAL tx_shift_reg : STD_LOGIC_VECTOR(5 DOWNTO 0);
 	SIGNAL tx_data : STD_LOGIC_VECTOR(11 DOWNTO 0);
     
+   SIGNAL data_ready : STD_LOGIC;
    SIGNAL adc_busy : STD_LOGIC;
    SIGNAL adc_start : STD_LOGIC;
    SIGNAL adc_rx_data : STD_LOGIC_VECTOR(11 DOWNTO 0);
    SIGNAL busy_previous : STD_LOGIC;
 
+	TYPE MODE_TYPE IS (send_conversion, send_status);
+	SIGNAL mode : MODE_TYPE;
+	SIGNAL send_something : STD_LOGIC = '0';
+
 
 --	case control_reg(3 downto 0) is
   --  	when "0000" => tx_shift_reg <= "100010";
  BEGIN
-	WITH control_reg SELECT
-		tx_shift_reg <= "100010" WHEN "0000",
+ 	 send_something <= '1' WHEN (IO_WRITE = '1') ELSE '0';
+	 WITH IO_ADDR SELECT
+	 	mode <=	send_conversion WHEN "00011000000",
+	 			send_status WHEN "00011000001";
+
+	 PROCESS(send_something, IO_READ, RESETN)
+	 	 IF (send_something = '0') AND (IO_READ = '1') THEN
+		 	WITH control_reg SELECT
+				tx_shift_reg <= "100010" WHEN "0000",
 							"110010" WHEN "0001",
 							"100100" WHEN "0010",
 							"110100" WHEN "0011",
@@ -63,8 +75,18 @@ ARCHITECTURE behavior OF ADC_Peripheral IS
 							"101100" WHEN "0110",
 							"111100" WHEN "0111";
 
-	tx_data(11 downto 6) <= tx_shift_reg;
-	tx_data(5 DOWNTO 0)  <= "000000";
+			tx_data(11 downto 6) <= tx_shift_reg;
+			tx_data(5 DOWNTO 0)  <= "000000";
+		ELSIF (send_someting = '1') THEN
+			CASE mode IS
+				WHEN send_conversion =>
+				
+				WHEN send_status =>
+				
+			END CASE;
+		END IF;
+
+	END PROCESS;
 	
 	ADC : LTC2308_ctrl
     PORT MAP(
