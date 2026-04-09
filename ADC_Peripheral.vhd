@@ -82,7 +82,7 @@ ARCHITECTURE behavior OF ADC_Peripheral IS
 
 			tx_data(11 downto 6) <= tx_shift_reg;
 			tx_data(5 DOWNTO 0)  <= "000000";
-		ELSIF (send_someting = '1') THEN
+		ELSIF (send_something = '1') THEN
 			CASE mode IS
 				WHEN send_conversion =>
 				
@@ -110,8 +110,7 @@ ARCHITECTURE behavior OF ADC_Peripheral IS
         mosi => ADC_DIN,
         miso => ADC_DOUT
     );
-	
 
-	
+END ADC_Peripheral;
 	
 	
