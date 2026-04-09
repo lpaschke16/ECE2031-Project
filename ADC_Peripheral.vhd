@@ -44,7 +44,6 @@ ARCHITECTURE behavior OF ADC_Peripheral IS
 	SIGNAL tx_shift_reg : STD_LOGIC_VECTOR(5 DOWNTO 0);
 	SIGNAL tx_data : STD_LOGIC_VECTOR(11 DOWNTO 0);
     
-   SIGNAL data_ready : STD_LOGIC;
    SIGNAL adc_busy : STD_LOGIC;
    SIGNAL adc_start : STD_LOGIC;
    SIGNAL adc_rx_data : STD_LOGIC_VECTOR(11 DOWNTO 0);
