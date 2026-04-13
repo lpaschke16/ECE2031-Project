@@ -91,7 +91,7 @@ ARCHITECTURE behavior OF ADC_Peripheral IS
 	        mosi => ADC_DIN,
 	        miso => ADC_DOUT
 	    );
-
+		-- reg map stuff + actual control 
 		PROCESS(CLOCK, RESETN)
 		 	IF (RESETN = '0') THEN
 					control_reg <= "0000";
