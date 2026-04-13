@@ -55,10 +55,10 @@ ARCHITECTURE behavior OF ADC_Peripheral IS
 
 	 	send_something <= IO_WRITE;
 		WITH IO_ADDR SELECT
-			mode <=	send_conversion WHEN "00010010000", -- 0x090
-					access_status WHEN "00010010001", -- 0x091
-					access_data WHEN "00010010010", --0x092
-					ignore WHEN OTHERS;
+		    mode <= send_conversion WHEN "00011000000", -- 0x0C0
+		            access_status   WHEN "00011000001", -- 0x0C1
+		            access_data     WHEN "00011000010", -- 0x0C2
+		            ignore          WHEN OTHERS;
 	 
 		WITH control_reg SELECT
 			tx_shift_reg <= "100010" WHEN "0000",
