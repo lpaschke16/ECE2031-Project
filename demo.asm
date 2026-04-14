@@ -18,6 +18,8 @@ ADCread:
     ADDI 1
     ADD count
     STORE count
+    CALL averageCalc
+    LOAD count
     SUB X ; pick number for sample number, X=2^n
     JZERO Finish
     JUMP Loop
@@ -25,7 +27,13 @@ ADCread:
 Finish:
     LOAD sum
     SHIFT X ; X=n
-    OUT Hex0 
+    OUT Hex0
+
+averageCalc:
+	LOAD sum
+    SHIFT X ;X=n
+    OUT Hex0
+    RETURN
 
 ;Vars
 chan0: DW &B0000000000
