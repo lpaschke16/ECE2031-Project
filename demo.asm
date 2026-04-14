@@ -60,6 +60,7 @@ chan2: DW &B0000000010
 count: DW &B0000000000
 sum:   DW &B0000000000
 randNum: DW 0
+Bit9: DW &B01000000000
 12down: DW &B0111111111111
 
 ;IO address constants
