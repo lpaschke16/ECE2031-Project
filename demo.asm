@@ -1,5 +1,23 @@
 ORG 0
 
+Reset:
+	IN Switches
+	JNZ Reset
+
+Rand: 
+	IN Switches
+	AND Bit9
+	JNZ Next
+	LOAD randNum
+	ADDI 1
+	STORE randNum
+	JUMP Rand
+
+Next: 
+	LOAD randNum
+	AND 12Down ;mod 12 bits
+	OUT Hex0
+
 Loop:
     LOAD chan0
     OUT ADCconfig
@@ -40,8 +58,11 @@ chan0: DW &B0000000000
 chan2: DW &B0000000010
 count: DW &B0000000000
 sum:   DW &B0000000000
+randNum: DW 0
+12down: DW &B0111111111111
 
 ;IO address constants
+Switches:   EQU 000
 Hex0:       EQU 004
 Hex1:       EQU 005
 ADCout:     EQU 194
