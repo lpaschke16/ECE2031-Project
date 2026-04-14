@@ -30,6 +30,7 @@ ADCwait:
 
 ADCread:
     IN ADCout
+	OUT Hex0
     ADD sum
     STORE sum
     AND chan0 ; AC=0
