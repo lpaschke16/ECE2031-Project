@@ -37,7 +37,6 @@ ADCread:
     ADDI 1
     ADD count
     STORE count
-    CALL averageCalc
     LOAD count
     ADDI -256 ; pick number for sample number, X=2^n
     JZERO Finish
@@ -45,14 +44,8 @@ ADCread:
 
 Finish:
     LOAD sum
-    SHIFT X ; X=n
+    SHIFT -8 ; X=n
     OUT Hex0
-
-averageCalc:
-	LOAD sum
-    SHIFT -8 ;X=n
-    OUT Hex0
-    RETURN
 
 ;Vars
 chan0: DW &B0000000000
