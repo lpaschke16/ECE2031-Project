@@ -39,7 +39,7 @@ ADCread:
     STORE count
     CALL averageCalc
     LOAD count
-    SUB X ; pick number for sample number, X=2^n
+    ADDI -256 ; pick number for sample number, X=2^n
     JZERO Finish
     JUMP Loop
 
@@ -50,7 +50,7 @@ Finish:
 
 averageCalc:
 	LOAD sum
-    SHIFT X ;X=n
+    SHIFT -8 ;X=n
     OUT Hex0
     RETURN
 
