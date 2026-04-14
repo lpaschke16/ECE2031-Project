@@ -48,7 +48,7 @@ ARCHITECTURE behavior OF ADC_Peripheral IS
 
 	TYPE MODE_TYPE IS (send_conversion, access_status, access_data, ignore);
 	SIGNAL mode : MODE_TYPE;
-	SIGNAL send_something : STD_LOGIC = '0';
+	SIGNAL send_something : STD_LOGIC := '0';
 
 
  	BEGIN
@@ -93,6 +93,7 @@ ARCHITECTURE behavior OF ADC_Peripheral IS
 	    );
 		-- reg map stuff + actual control 
 		PROCESS(CLOCK, RESETN)
+		BEGIN
 		 	IF (RESETN = '0') THEN
 					control_reg <= "0000";
 					status <= '0';
