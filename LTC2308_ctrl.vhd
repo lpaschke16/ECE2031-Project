@@ -25,6 +25,7 @@ entity LTC2308_ctrl is
 		start    : in  std_logic;
 		rx_data  : out std_logic_vector(11 downto 0);
 		busy     : out std_logic;
+		tx_cmd	: in std_logic_vector(11 downto 0);
 		
 		-- SPI Physical Interface
 		sclk     : out std_logic; -- Serial clock
@@ -52,8 +53,7 @@ architecture internals of LTC2308_ctrl is
 	
 	-- Internal signals for data shifting
 	-- The default value here is for a single-ended conversion on channel 0
---	constant tx_data : std_logic_vector(11 downto 0) := "100010000000";
-	signal tx_data : std_logic_vector(11 downto 0);
+	--constant tx_data : std_logic_vector(11 downto 0) := "100010000000";
 	signal tx_reg    : std_logic_vector(11 downto 0);
 	signal rx_reg    : std_logic_vector(11 downto 0);
 
@@ -179,8 +179,10 @@ begin
 			if state = IDLE then
 				-- Load data to transmit immediately upon start signal
 				if start = '1' then
-					tx_reg <= tx_data;
-					mosi   <= tx_data(11); -- Setup the first bit on MOSI
+					--tx_reg <= tx_data;
+					tx_reg <= tx_cmd;
+					--mosi   <= tx_data(11); -- Setup the first bit on MOSI
+					mosi <= tx_cmd(11);
 				end if;
 					 
 			elsif state = TRANSFER then
