@@ -15,7 +15,7 @@ Rand:
 
 Next: 
 	LOAD randNum
-	AND 12Down ;mod 12 bits
+	AND down12 ;mod 12 bits
 	OUT Hex0
 
 Loop:
@@ -45,16 +45,53 @@ ADCread:
 Finish:
     LOAD sum
     SHIFT -8 ; X=n
+	Store target
     OUT Hex0
 
+WaitGuess:
+    IN    Switches
+    AND   Bit0        
+    JZERO WaitGuess   
+
+ReadPot:
+    LOAD  chan0
+    OUT   ADCconfig
+    
+PotWait:              
+    IN    ADCstatus
+    SUB   chan2
+    JZERO PotReadHey
+    JUMP  PotWait
+
+PotRead:
+    IN    ADCout      
+    SUB   target      
+    JPOS  AbsValue 
+	;Neg
+
+AbsValue:
+	;...
+
+Correct:
+	;...
+
+ReleaseWait:
+    IN    Switches
+    AND   Bit0        ; Wait for Switch 0 to be flipped DOWN
+    JNZ   ReleaseWait 
+    JUMP  Next
+
 ;Vars
+target:    DW 0
+score:     DW 0
 chan0: DW &B0000000000
 chan2: DW &B0000000010
 count: DW &B0000000000
 sum:   DW &B0000000000
 randNum: DW 0
+Bit0: DW &B000000000001
 Bit9: DW &B01000000000
-12down: DW &B0111111111111
+down12: DW &B0111111111111
 
 ;IO address constants
 Switches:   EQU 000
