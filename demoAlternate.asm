@@ -57,6 +57,7 @@ Finish:
     LOAD sum
     SHIFT -2 ; X=n
     OUT Hex0
+	JUMP Reset
 
 
 Delay:
