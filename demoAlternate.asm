@@ -38,13 +38,13 @@ ADCread:
     IN ADCout
 	OUT Hex0
 	IN Switches
-	AND Bit8 ;switch 2 to submit guess
-	ADDI -128 
+	AND Bit8 ;switch 8 to submit guess
+	ADDI -256 
 	JNZ Loop
 	IN ADCout
     ADD sum
     STORE sum
-    AND chan0 ; AC=0
+    LOADI 0 ; AC=0
     ADDI 1
     ADD count
     STORE count
