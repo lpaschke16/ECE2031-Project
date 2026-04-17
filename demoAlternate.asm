@@ -17,6 +17,10 @@ Next:
 	LOAD randNum
 	AND down12 ;mod 12 bits
 	OUT Hex0
+	AND chan0       ; AC = 0 (chan0 = 0)
+    STORE sum
+    STORE count
+    JUMP Loop
 
 Loop:
 	JUMP chanSelect
