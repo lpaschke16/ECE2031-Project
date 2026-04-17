@@ -62,11 +62,9 @@ Finish:
 
 chanSelect:
 	IN Switches ; MAKE SURE SWITCH 9 IS DOWN BEFFORE YOU START
-	AND Bit0 
 	ADDI -1
 	JZERO C0
 	IN Switches
-	AND Bit2
 	ADDI -4
 	JZERO C2
 	JUMP chanSelect
