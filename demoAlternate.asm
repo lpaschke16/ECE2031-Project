@@ -19,7 +19,13 @@ Next:
 	OUT Hex0
 
 Loop:
-    LOAD chan0
+	JUMP chanSelect
+C0:
+	LOAD chan0
+    OUT ADCconfig
+	JUMP ADCwait
+C2:
+    LOAD chan2
     OUT ADCconfig
 
 ADCwait: 
@@ -30,7 +36,12 @@ ADCwait:
 
 ADCread:
     IN ADCout
-	  OUT Hex0
+	OUT Hex0
+	IN Switches
+	AND Bit8 ;switch 2 to submit guess
+	ADDI -128 
+	JNZ Loop
+	IN ADCout
     ADD sum
     STORE sum
     AND chan0 ; AC=0
@@ -38,14 +49,34 @@ ADCread:
     ADD count
     STORE count
     LOAD count
-    ADDI -256 ; pick number for sample number, X=2^n
+    ADDI -4 ; pick number for sample number, X=2^n=4
     JZERO Finish
     JUMP Loop
 
 Finish:
     LOAD sum
-    SHIFT -8 ; X=n
+    SHIFT -2 ; X=n
     OUT Hex0
+
+
+Delay:
+	OUT    Timer
+WaitingLoop:
+	IN     Timer
+	ADDI   -10
+	JNEG   WaitingLoop
+	RETURN
+
+chanSelect:
+	IN Switches ; MAKE SURE SWITCH 9 IS DOWN BEFFORE YOU START
+	AND Bit0 
+	ADDI -1
+	JZERO C0
+	IN Switches
+	AND Bit2
+	ADDI -4
+	JZERO C2
+	JUMP chanSelect
 
 ;Vars
 chan0: DW &B0000000000
@@ -53,6 +84,9 @@ chan2: DW &B0000000010
 count: DW &B0000000000
 sum:   DW &B0000000000
 randNum: DW 0
+Bit0: DW &B00000000001
+Bit2: DW &B00000000100
+Bit8: DW &B00100000000
 Bit9: DW &B01000000000
 down12: DW &B0111111111111
 
