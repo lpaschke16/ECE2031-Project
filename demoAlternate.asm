@@ -60,10 +60,18 @@ Finish:
     LOAD sum
     SHIFT -2 ; X=n
     OUT Hex0
-	 LOADI 0
-	 STORE count
-	 STORE sum
-	 JUMP Reset
+	LOAD sum
+	SUB randNum
+	JNZ NoPoint
+	LOAD score
+	ADDI 1
+	STORE score
+	OUT Hex1
+NoPoint:
+	LOADI 0
+	STORE count
+	STORE sum
+	JUMP Reset
 
 
 chanSelect:
@@ -81,11 +89,12 @@ chan2: DW &B0000000010
 count: DW &B0000000000
 sum:   DW &B0000000000
 randNum: DW 0
-Bit0: DW &B00000000001
-Bit2: DW &B00000000100
-Bit8: DW &B00100000000
-Bit9: DW &B01000000000
+Bit0: 	DW &B00000000001
+Bit2: 	DW &B00000000100
+Bit8: 	DW &B00100000000
+Bit9: 	DW &B01000000000
 down12: DW &B0111111111111
+score: 	DW &B0000000000
 
 ;IO address constants
 Switches:   EQU 000
