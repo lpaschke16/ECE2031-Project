@@ -17,10 +17,7 @@ Next:
 	LOAD randNum
 	AND down12 ;mod 12 bits
 	OUT Hex0
-	AND chan0       ; AC = 0 (chan0 = 0)
-    STORE sum
-    STORE count
-    JUMP Loop
+
 
 Loop:
 	JUMP chanSelect
@@ -52,6 +49,8 @@ ADCread:
     ADDI 1
     ADD count
     STORE count
+	 LOAD count
+	 OUT Hex0
     LOAD count
     ADDI -4 ; pick number for sample number, X=2^n=4
     JZERO Finish
@@ -61,7 +60,10 @@ Finish:
     LOAD sum
     SHIFT -2 ; X=n
     OUT Hex0
-	JUMP Reset
+	 LOADI 0
+	 STORE count
+	 STORE sum
+	 JUMP Reset
 
 
 chanSelect:
