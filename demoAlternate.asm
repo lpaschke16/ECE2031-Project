@@ -59,10 +59,14 @@ ADCread:
 Finish:
     LOAD sum
     SHIFT -2 ; X=n
+	STORE sum
     OUT Hex0
 	LOAD sum
 	SUB randNum
-	JNZ NoPoint
+	JZERO Point
+	SUB threshold
+	JPOS NoPoint
+Point:
 	LOAD score
 	ADDI 1
 	STORE score
@@ -95,6 +99,7 @@ Bit8: 	DW &B00100000000
 Bit9: 	DW &B01000000000
 down12: DW &B0111111111111
 score: 	DW &B0000000000
+threshold: DW &B0000100000
 
 ;IO address constants
 Switches:   EQU 000
