@@ -63,20 +63,31 @@ Finish:
     OUT Hex0
 	LOAD sum
 	SUB randNum
-	JZERO Point
+	JNEG MakePos
+	JUMP CheckRange
+
+MakePos:
+	STORE tempDiff
+	LOADI 0
+	SUB tempDiff
+
+CheckRange:
 	SUB threshold
-	JPOS NoPoint
+	JNEG Point
+	JZERO Point
+	JUMP NoPoint
+
 Point:
 	LOAD score
 	ADDI 1
 	STORE score
 	OUT Hex1
+
 NoPoint:
 	LOADI 0
 	STORE count
 	STORE sum
 	JUMP Reset
-
 
 chanSelect:
 	IN Switches ; MAKE SURE SWITCH 9 IS DOWN BEFFORE YOU START
@@ -100,6 +111,7 @@ Bit9: 	DW &B01000000000
 down12: DW &B0111111111111
 score: 	DW &B0000000000
 threshold: DW &B0000100000
+tempDiff: DW &B00000
 
 ;IO address constants
 Switches:   EQU 000
