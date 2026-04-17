@@ -60,14 +60,6 @@ Finish:
 	JUMP Reset
 
 
-Delay:
-	OUT    Timer
-WaitingLoop:
-	IN     Timer
-	ADDI   -10
-	JNEG   WaitingLoop
-	RETURN
-
 chanSelect:
 	IN Switches ; MAKE SURE SWITCH 9 IS DOWN BEFFORE YOU START
 	AND Bit0 
